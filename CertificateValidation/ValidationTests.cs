@@ -6,7 +6,7 @@ namespace CertificateValidation;
 public class ValidationTests
 {
     [Fact]
-    public void ChainBuild_Should_BeTrue()
+    public void ChainBuild_Should_Invalid()
     {
         var rootCert = X509CertificateLoader.LoadCertificate(
             """
@@ -110,6 +110,7 @@ public class ValidationTests
         var buildResultWithBrokenRoot = chain.Build(endpointCert);
 
         Assert.True(buildResult);
+        Assert.True(rootCert.GetPublicKeyString() == brokenCert.GetPublicKeyString());
         Assert.False(buildResultWithBrokenRoot);
     }
 }
